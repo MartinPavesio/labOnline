@@ -1,0 +1,110 @@
+<div th:fragment="sidebar">
+	<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion sticky-top" id="accordionSidebar">
+		<a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+			<div class="sidebar-brand-icon rotate-n-15">
+				<i class="fas fa-microscope"></i>
+			</div>
+			<div class="sidebar-brand-text mx-3">
+				labonline
+				<sup>0.1</sup>
+			</div>
+		</a>
+		<hr class="sidebar-divider my-0">
+		<li th:class="${#strings.equals(activeLink, 'Admin')} ? 'nav-item active' : 'nav-item'">
+			<a class="nav-link" th:href="@{/admin}">
+				<i class="fas fa-fw fa-tachometer-alt"></i>
+				<span>Inicio</span>
+			</a>
+		</li>
+		<div sec:authorize="hasRole('ROLE_ADMIN')">
+			<hr class="sidebar-divider">
+			<div class="sidebar-heading">Admin Laboratorio</div>
+			<li th:class="${#strings.equals(activeLink, 'Laboratorio')} ? 'nav-item active' : 'nav-item'">
+				<a class="nav-link" th:href="@{/laboratorio}">
+					<i class="fas fa-fw fa-table"></i>
+					<span>Laboratorios</span>
+				</a>
+			</li>
+			<li th:class="${#strings.equals(activeLink, 'Usuario') || #strings.equals(activeLink, 'CrearUsuario') || #strings.equals(activeLink, 'MostrarUsuario') || #strings.equals(activeLink, 'OrdenMedica')} ? 'nav-item active' : 'nav-item'">
+				<a th:class="${#strings.equals(activeLink, 'Usuario') || #strings.equals(activeLink, 'CrearUsuario') || #strings.equals(activeLink, 'MostrarUsuario') || #strings.equals(activeLink, 'OrdenMedica')} ? 'nav-link' : 'nav-link collapsed'" href="#"
+					data-toggle="collapse" data-target="#collapsePagesUser" aria-expanded="true" aria-controls="collapsePagesUser">
+					<i class="fas fa-fw fa-folder"></i>
+					<span>Usuarios</span>
+				</a>
+				<div id="collapsePagesUser"
+					th:class="${#strings.equals(activeLink, 'Usuario') || #strings.equals(activeLink, 'CrearUsuario') || #strings.equals(activeLink, 'MostrarUsuario') || #strings.equals(activeLink, 'OrdenMedica')} ? 'collapse show' : 'collapse'"
+					aria-labelledby="headingPages" data-parent="#accordionSidebar">
+					<div class="bg-white py-2 collapse-inner rounded">
+						<a th:class="${#strings.equals(activeLink, 'MostrarUsuario')} ? 'collapse-item active' : 'collapse-item'" th:href="@{/usuario/mostrar}">Ver Usuarios</a>
+						<a th:class="${#strings.equals(activeLink, 'OrdenMedica')} ? 'collapse-item active' : 'collapse-item'" th:href="@{/ordenmedica}">Autorizaciones</a>
+					</div>
+				</div>
+			</li>
+			<li th:class="${#strings.equals(activeLink, 'OSociales')} ? 'nav-item active' : 'nav-item'">
+				<a class="nav-link" th:href="@{/obrasocial}">
+					<i class="fas fa-fw fa-table"></i>
+					<span>Obras Sociales</span>
+				</a>
+			</li>
+			<li th:class="${#strings.equals(activeLink, 'Analisis') || #strings.equals(activeLink, 'CrearAnalisis') || #strings.equals(activeLink, 'Preparativos')} ? 'nav-item active' : 'nav-item'">
+				<a th:class="${#strings.equals(activeLink, 'Analisis') || #strings.equals(activeLink, 'CrearAnalisis') || #strings.equals(activeLink, 'Preparativos')} ? 'nav-link' : 'nav-link collapsed'" href="#" data-toggle="collapse"
+					data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+					<i class="fas fa-fw fa-folder"></i>
+					<span>Analisis</span>
+				</a>
+				<div id="collapsePages" th:class="${#strings.equals(activeLink, 'Analisis') || #strings.equals(activeLink, 'CrearAnalisis') || #strings.equals(activeLink, 'Preparativos')} ? 'collapse show' : 'collapse'" aria-labelledby="headingPages"
+					data-parent="#accordionSidebar">
+					<div class="bg-white py-2 collapse-inner rounded">
+						<a th:class="${#strings.equals(activeLink, 'Analisis')} ? 'collapse-item active' : 'collapse-item'" th:href="@{/analisis}">Lista de Analisis</a>
+						<a th:class="${#strings.equals(activeLink, 'Preparativos')} ? 'collapse-item active' : 'collapse-item'" th:href="@{/admin/preparativos}">Preparativos</a>
+						<a th:class="${#strings.equals(activeLink, 'CrearAnalisis')} ? 'collapse-item active' : 'collapse-item'" th:href="@{/analisis/crear}">Agregar Analisis</a>
+					</div>
+				</div>
+			</li>
+		</div>
+		<div sec:authorize="hasRole('ROLE_PACIENTE')">
+			<hr class="sidebar-divider">
+			<div class="sidebar-heading">Admin Usuarios</div>
+			<li th:class="${#strings.equals(activeLink, 'Usuario') || #strings.equals(activeLink, 'CrearUsuario') || #strings.equals(activeLink, 'MostrarUsuario') || #strings.equals(activeLink, 'OrdenMedica')} ? 'nav-item active' : 'nav-item'">
+				<a th:class="${#strings.equals(activeLink, 'Usuario') || #strings.equals(activeLink, 'CrearUsuario') || #strings.equals(activeLink, 'MostrarUsuario') || #strings.equals(activeLink, 'OrdenMedica')} ? 'nav-link' : 'nav-link collapsed'" href="#"
+					data-toggle="collapse" data-target="#collapsePagesUser" aria-expanded="true" aria-controls="collapsePagesUser">
+					<i class="fas fa-fw fa-folder"></i>
+					<span>Usuario</span>
+				</a>
+				<div id="collapsePagesUser"
+					th:class="${#strings.equals(activeLink, 'MostrarUsuario') || #strings.equals(activeLink, 'CrearUsuario') || #strings.equals(activeLink, 'MostrarUsuario') || #strings.equals(activeLink, 'OrdenMedica')} ? 'collapse show' : 'collapse'"
+					aria-labelledby="headingPages" data-parent="#accordionSidebar">
+					<div class="bg-white py-2 collapse-inner rounded">
+						<a th:class="${#strings.equals(activeLink, 'MostrarUsuario')} ? 'collapse-item active' : 'collapse-item'" th:href="@{/usuario/mostrar}">Perfil de Usuario</a>
+						<a th:class="${#strings.equals(activeLink, 'OrdenMedica')} ? 'collapse-item active' : 'collapse-item'" th:href="@{/ordenmedica}">Ordenes Medicas</a>
+					</div>
+				</div>
+			</li>
+			<li th:class="${#strings.equals(activeLink, 'OSociales')} ? 'nav-item active' : 'nav-item'">
+				<a class="nav-link" th:href="@{/obrasocial}">
+					<i class="fas fa-fw fa-table"></i>
+					<span>Obras Sociales</span>
+				</a>
+			</li>
+			<li th:class="${#strings.equals(activeLink, 'Analisis') || #strings.equals(activeLink, 'CrearAnalisis') || #strings.equals(activeLink, 'Preparativos')} ? 'nav-item active' : 'nav-item'">
+				<a th:class="${#strings.equals(activeLink, 'Analisis') || #strings.equals(activeLink, 'CrearAnalisis') || #strings.equals(activeLink, 'Preparativos')} ? 'nav-link' : 'nav-link collapsed'" href="#" data-toggle="collapse"
+					data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+					<i class="fas fa-fw fa-folder"></i>
+					<span>Analisis</span>
+				</a>
+				<div id="collapsePages" th:class="${#strings.equals(activeLink, 'Analisis') || #strings.equals(activeLink, 'CrearAnalisis') || #strings.equals(activeLink, 'Preparativos')} ? 'collapse show' : 'collapse'" aria-labelledby="headingPages"
+					data-parent="#accordionSidebar">
+					<div class="bg-white py-2 collapse-inner rounded">
+						<a th:class="${#strings.equals(activeLink, 'Analisis')} ? 'collapse-item active' : 'collapse-item'" th:href="@{/analisis}">Lista de Analisis</a>
+						<a th:class="${#strings.equals(activeLink, 'Preparativos')} ? 'collapse-item active' : 'collapse-item'" th:href="@{/admin/preparativos}">Indicaciones</a>
+						<a th:class="${#strings.equals(activeLink, 'CrearAnalisis')} ? 'collapse-item active' : 'collapse-item'" th:href="@{/analisis}">Solicitar Analisis</a>
+					</div>
+				</div>
+			</li>
+		</div>
+		<hr class="sidebar-divider">
+		<div class="text-center d-none d-md-inline">
+			<button class="rounded-circle border-0" id="sidebarToggle"></button>
+		</div>
+	</ul>
+</div>

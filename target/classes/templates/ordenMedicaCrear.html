@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es-AR" xmlns:th="https://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Ordenes Medicas</title>
+</head>
+
+<body>
+	<div class="container-fluid" layout:fragment="contenido">
+		<div class="card shadow mb-4 mx-auto" style="width: 50rem;">
+			<div class="card-header py-3">
+				<div class="row">
+					<div class="col">
+						<h1 class="h3 mb-2 text-gray-800">Crear Orden Medica</h1>
+					</div>
+				</div>
+			</div>
+			<div class="card-body">
+				<p>Por favor rellene todos los campos.</p>
+				<p th:if="${error != null}" th:text="${error}"></p>
+				<form th:action="@{/ordenmedica/guardar}" method="POST" enctype="multipart/form-data">
+					<div sec:authorize="hasRole('ROLE_PACIENTE')">
+						<input type="hidden" name="usuario" th:value="${session.usuariosession.id}">
+					</div>
+					<div sec:authorize="hasRole('ROLE_ADMIN')">
+						<select name="usuario" class="form-control mb-1 selectpicker">
+							<option disabled>Seleccionar Usuario</option>
+							<option th:each="opc : ${users}" th:value="${opc.id}" th:text="${opc.nombre}">
+							</option>
+						</select>
+					</div>
+					<div sec:authorize="hasRole('ROLE_PACIENTE')">
+
+						<select name="analisis" id="analisis" class="form-control mb-1 selectpicker" multiple>
+							<option disabled>Seleccionar Analisis</option>
+							<div th:each="opc : ${analisis}">
+								<div th:if="${opc.obraSocial != null}">
+									<div th:if="${session.usuariosession.obraSocial != null}">
+										<option
+											th:if="${opc.obraSocial.nombre==session.usuariosession.obraSocial.nombre}"
+											th:value="${opc.id}" th:text="${opc.nombre}">
+										</option>
+									</div>
+								</div>
+							</div>
+						</select>
+
+
+					</div>
+					<div sec:authorize="hasRole('ROLE_ADMIN')">
+						<select name="obrasocial" id="os" class="form-control mb-1 selectpicker">
+							<option disabled>Seleccionar Obra Social</option>
+							<option th:each="opc : ${obraSociales}" th:value="${opc.id}" th:text="${opc.nombre}">
+							</option>
+						</select>
+					</div>
+					<div sec:authorize="hasRole('ROLE_PACIENTE')">
+						<div th:if="${session.usuariosession.obraSocial != null}">
+							<input type="hidden" name="obrasocial" th:value="${session.usuariosession.obraSocial.id}">
+						</div>
+						<div th:if="${session.usuariosession.obraSocial == null}">
+							<input type="hidden" name="obrasocial" th:value="null">
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<div class="col-sm-6 mb-3 mb-sm-0">
+							<input type="date" name="fechaOrden" value="2021-01-01" min="2021-01-01" max="2040-12-31"
+								class="form-control mb-1">
+						</div>
+						<div class="col-sm-6">
+							<div class="input-group mb-3">
+								<label class="input-group-text" for="imagen">Foto</label>
+								<input type="file" class="form-control" id="imagen" name="foto">
+							</div>
+						</div>
+					</div>
+					<button class="btn btn-primary" type="submit">Guardar</button>
+					<button class="btn btn-secondary" type="reset">Restablecer</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

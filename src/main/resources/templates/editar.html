@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es-AR" xmlns:th="https://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Editar Perfil de Usuario</title>
+</head>
+
+<body>
+	<div class="container-fluid" layout:fragment="contenido">
+		<div class="card shadow mb-4 mx-auto" style="width: 50rem;">
+			<div class="card-header py-3">
+				<div class="row">
+					<div class="col">
+						<h1 class="h3 mb-2 text-gray-800" th:text="'Editar '+${usuario.nombre}"></h1>
+					</div>
+				</div>
+			</div>
+			<div class="card-body">
+				<form th:action="@{/usuario/editar}" method="POST" enctype="multipart/form-data">
+					<p th:if="${error != null}" th:text="${error}"></p>
+					<input type="hidden" name="id" th:value="${usuario.id}">
+					<input type="text" class="form-control mb-1" id="dni" name="dni" placeholder="DNI"
+						th:value=${usuario.dni} />
+					<input type="text" class="form-control mb-1" id="nombre" name="nombre" placeholder="Nombre"
+						th:value="${usuario.nombre}">
+					<input type="text" class="form-control mb-1" id="apellido" name="apellido" placeholder="Apellido"
+						th:value="${usuario.apellido}">
+					<input type="date" class="form-control mb-1" id="fehadenacimiento" name="fechaNacimiento"
+						placeholder="Fecha de nacimiento" th:value="${usuario.fechaNacimiento}">
+
+					<select name="sexo" class="form-control mb-1">
+						<option selected disabled>Genero</option>
+						<option th:each="sex:${T(com.egg.labOnline.Enums.Sexo).values()}" th:value="${sex}"
+							th:text="${sex}"></option>
+					</select>
+
+					<input type="text" class="form-control mb-1" id="mail" name="mail" placeholder="mail"
+						th:value="${usuario.mail}">
+					<input type="text" class="form-control mb-1" id="telefono" name="telefono" placeholder="Telefono"
+						th:value="${usuario.telefono}">
+					<input type="text" class="form-control mb-1" id="numeroasociado" name="numeroAsociado"
+						placeholder="Numero Asociado" th:value="${usuario.numeroAsociado}">
+
+					<select name="obraSocial" class="form-control mb-1">
+						<option th:value=null>Seleccione su Obra Social</option>
+						<option th:each="os : ${obrasocial}" th:value="${os.id}" th:text="${os.nombre}"></option>
+					</select>
+
+					<input type="text" class="form-control mb-1" id="direccion" name="direccion" placeholder="Direccion"
+						th:value="${usuario.direccion}">
+
+					<div class="input-group mb-3">
+						<label class="input-group-text" for="imagen">Foto</label>
+						<input type="file" class="form-control" id="imagen" name="foto">
+					</div>
+
+
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+					<button type="submit" class="btn btn-primary">Guardar</button>
+
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

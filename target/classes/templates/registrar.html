@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es-AR" xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="Proyecto final EGG. Equipo 1. Laboratorio Online">
+<meta name="author" content="Equipo 1. Laboratorio Online">
+<title>labOnline - Crear Cuenta</title>
+<link href="vendor/fontawesome-free/css/all.min.css" th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+<link href="css/sb-admin-2.min.css" th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<link rel=icon href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15/svgs/solid/microscope.svg>
+</head>
+<body class="bg-gradient-primary">
+	<div class="container">
+		<div class="card o-hidden border-0 shadow-lg my-5">
+			<div class="card-body p-0">
+				<div class="row">
+					<div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+					<div class="col-lg-7">
+						<div class="p-5">
+							<div class="text-center">
+								<h1 class="h4 text-gray-900 mb-4">Crear Cuenta</h1>
+							</div>
+							<form class="user" th:action="@{/usuario/registrar}" method="POST" enctype="multipart/form-data">
+								<p th:if="${error != null}" th:text="${error}"></p>
+								<div class="form-group row">
+									<div class="col-sm-6 mb-3 mb-sm-0">
+										<input name="nombre" type="text" class="form-control" id="exampleFirstName" placeholder="Nombre">
+									</div>
+									<div class="col-sm-6">
+										<input name="apellido" type="text" class="form-control" id="exampleLastName" placeholder="Apellido">
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-sm-6 mb-3 mb-sm-0">
+										<input name="dni" type="text" class="form-control" placeholder="DNI">
+									</div>
+									<div class="col-sm-6">
+										<input name="fechaNacimiento" type="date" class="form-control">
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-sm-6 mb-3 mb-sm-0">
+										<input name="telefono" type="text" class="form-control" placeholder="Telefono">
+									</div>
+									<div class="col-sm-6">
+										<select class="form-select" aria-label="Default select example" name="sexo">
+											<option selected disabled>Genero</option>
+											<option th:each="sex:${T(com.egg.labOnline.Enums.Sexo).values()}" th:value="${sex}" th:text="${sex}"></option>
+										</select>
+									</div>
+								</div>
+								<div class="form-group">
+									<input name="direccion" type="text" class="form-control" id="exampleLastName" placeholder="Direccion">
+								</div>
+								<div class="input-group mb-3">
+									<label class="input-group-text" for="imagen">Foto</label>
+									<input type="file" class="form-control" id="imagen" name="foto">
+								</div>
+								<div class="form-group">
+									<input type="email" name="mail" class="form-control" placeholder="Direccion de Email">
+								</div>
+								<div class="form-group row">
+									<div class="col-sm-8 mb-3 mb-sm-0">
+										<select class="form-select" name="obraSocial" id="obrasociales" aria-label="Default select example">
+											<option selected disabled>Seleccione su Obra Social</option>
+											<option th:each="opc: ${obrasocial}" th:value="${opc.id}" th:text="${opc.nombre}"></option>
+										</select>
+									</div>
+									<div class="col-sm-4">
+										<input name="numeroAsociado" type="text" class="form-control" placeholder="ID Asociado">
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-sm-6 mb-3 mb-sm-0">
+										<input name="clave" type="password" class="form-control" placeholder="Contraseña">
+									</div>
+									<div class="col-sm-6">
+										<input name="clave2" type="password" class="form-control" placeholder="Repita Contraseña">
+									</div>
+								</div>
+								<input type="submit" value="Registrar Cuentas" class="btn btn-primary btn-user btn-block" />
+							</form>
+							<hr>
+							<div class="text-center">
+								<a class="small" href="javascript:void(0)">Restablecer Contraseña</a>
+							</div>
+							<div class="text-center">
+								<a class="small" href="login.html">¿Ya tiene cuenta? Ingrese</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="vendor/jquery/jquery.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+	<script src="js/sb-admin-2.min.js"></script>
+</body>

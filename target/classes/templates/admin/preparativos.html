@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es-AR" xmlns:th="https://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Laboratorio</title>
+</head>
+
+<body>
+	<div class="container-fluid" layout:fragment="contenido">
+		<div class="card shadow mb-4">
+			<div class="card-header py-3">
+				<div class="row">
+					<div class="col-10">
+						<h1 class="h3 text-gray-800 d-flex justify-content-sm-start align-items-start">Preparativos</h1>
+					</div>
+					<div sec:authorize="hasRole('ROLE_ADMIN')"
+						class="col-2 d-flex justify-content-sm-end align-items-end">
+						<a th:href="@{/createprepa}" class="button btn btn-primary">Crear Nuevo</a>
+					</div>
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table table-striped table-bordered" id="dataTable" width="100%" cellspacing="0">
+						<thead>
+							<tr>
+								<th hidden=>>ID</th>
+								<th>Nombre</th>
+								<th>Instruccion</th>
+								<th>Modificar</th>
+							</tr>
+						</thead>
+						<tfoot>
+							<tr>
+								<th hidden=>>ID</th>
+								<th>Nombre</th>
+								<th>Instruccion</th>
+								<th>Modificar</th>
+							</tr>
+						</tfoot>
+						<tbody>
+							<tr th:each="opc : ${lista}">
+								<td style="display: none" th:text="${opc.id}"></td>
+								<td th:text="${opc.nombre}"></td>
+								<td>
+									<a th:href="${opc.instruccion}" target="_blank"> Ver Instrucciones</a>
+								</td>
+								<td>
+									<a  th:href="@{/editprepa/__${opc.id}__}"
+										class="button btn btn-outline-primary btn-sm">Editar</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

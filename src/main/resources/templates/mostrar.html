@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es-AR" xmlns:th="https://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Listado de Pacientes</title>
+</head>
+
+<body>
+	<div class="container-fluid" layout:fragment="contenido">
+		<div class="card shadow mb-4">
+			<div class="card-header py-3">
+				<div class="row">
+					<div class="col-10">
+						<h1 class="h3 text-gray-800 d-flex justify-content-sm-start align-items-start">Listado de
+							Pacientes</h1>
+					</div>
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table table-striped table-bordered" id="dataTable" width="100%" cellspacing="0">
+						<thead>
+							<tr>
+								<th>Dni</th>
+								<th>Foto</th>
+								<th>Nombre</th>
+								<th>F. de Nac.</th>
+								<th>Mail</th>
+								<th>Telefono</th>
+								<th>Direccion</th>
+								<th>Obra social</th>
+								<th>Nro Asociado</th>
+								<th>Modificar</th>
+							</tr>
+						</thead>
+						<tfoot>
+							<tr>
+								<th>Dni</th>
+								<th>Foto</th>
+								<th>Nombre</th>
+								<th>F. de Nac.</th>
+								<th>Mail</th>
+								<th>Telefono</th>
+								<th>Direccion</th>
+								<th>Obra social</th>
+								<th>Nro Asociado</th>
+								<th>Modificar</th>
+							</tr>
+						</tfoot>
+						<tbody>
+							<div sec:authorize="hasRole('ROLE_ADMIN')">
+								<tr th:each="aux : ${usuario}">
+									<td th:text="${aux.dni}"></td>
+									<td>
+										<img th:src="${'/foto/usuario/' + aux.id}" class="img-thumbnail" width=80px
+											height=80px>
+									</td>
+									<td th:text="${aux.nombre}+' '+${aux.apellido}"></td>
+									<td th:text="${aux.fechaNacimiento}"></td>
+									<td th:text="${aux.mail}"></td>
+									<td th:text="${aux.telefono}"></td>
+									<td th:text="${aux.direccion}"></td>
+									<td>
+										<span th:if="${aux.obraSocial == null}">Sin Obra Social</span>
+										<a th:if="${aux.obraSocial != null}" th:text="${aux.obraSocial.nombre}"> </a>
+									</td>
+									<td th:text="${aux.numeroAsociado}"></td>
+									<td>
+										<button type="button"
+											class="button btn btn-outline-dark btn-outline-secondary btn-sm"
+											data-bs-toggle="modal"
+											th:attr="data-bs-target='#staticBackdrop'+*{aux.id}">Eliminar</button>
+										<a th:href="@{/usuario/editar/__${aux.id}__}"
+											class="button btn btn-outline-primary btn-sm">Editar</a>
+										<div class="modal fade" th:id="*{'staticBackdrop'+{aux.id}}"
+											data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+											aria-labelledby="staticBackdropLabel" aria-hidden="true">
+											<div class="modal-dialog modal-dialog-centered">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title" id="staticBackdropLabel">
+															<div
+																th:text="'Eliminar a '+${aux.nombre}+' '+${aux.apellido}">
+															</div>
+														</h5>
+														<button type="button" class="close" data-bs-dismiss="modal">
+															<span aria-hidden="true" class="modal_button">&times;</span>
+															<span class="sr-only">Close</span>
+														</button>
+													</div>
+													<div class="modal-body">
+														<div
+															th:text="'¿Eliminar a '+${aux.nombre}+' '+${aux.apellido}+' de la base de datos?'">
+														</div>
+														<p>
+															<strong>Esta accion no se puede deshacer</strong>
+														</p>
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-secondary"
+															data-bs-dismiss="modal">Cerrar</button>
+														<a th:href="@{/usuario/delete/__${aux.id}__}"
+															class="button btn btn-danger">Eliminar</a>
+													</div>
+												</div>
+											</div>
+										</div>
+									</td>
+								</tr>
+							</div>
+							<div sec:authorize="hasRole('ROLE_PACIENTE')">
+								<tr th:object="${session.usuariosession}">
+									<td th:text="*{dni}"></td>
+									<td>
+										<img th:src="${'/foto/usuario/' + session.usuariosession.id}"
+											class="img-thumbnail" width=80px height=80px>
+									</td>
+									<td th:text="*{nombre}+' '+*{apellido}"></td>
+									<td th:text="*{fechaNacimiento}"></td>
+									<td th:text="*{mail}"></td>
+									<td th:text="*{telefono}"></td>
+									<td th:text="*{direccion}"></td>
+									<td>
+										<span th:if="${session.usuariosession.obraSocial == null}">Sin Obra
+											Social</span>
+										<a th:if="${session.usuariosession.obraSocial != null}"
+											th:text="${session.usuariosession.obraSocial.nombre}"> </a>
+									</td>
+									<td th:text="*{numeroAsociado}"></td>
+									<td>
+										<a th:href="@{/usuario/editar/__${session.usuariosession.id}__}"
+											class="button btn btn-outline-primary btn-sm">Editar</a>
+									</td>
+								</tr>
+							</div>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

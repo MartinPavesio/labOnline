@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es-AR" xmlns:th="https://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Obras Sociales</title>
+</head>
+
+<body>
+
+	<div class="container-fluid" layout:fragment="contenido">
+		<div sec:authorize="hasRole('ROLE_ADMIN')">
+			<div class="card shadow mb-4">
+				<div class="card-header py-3">
+					<div class="row">
+						<div class="col-10">
+							<h1 class="h3 text-gray-800 d-flex justify-content-sm-start align-items-start">Obras
+								Sociales</h1>
+						</div>
+						<div class="col-2 d-flex justify-content-sm-end align-items-end">
+							<a th:href="@{obrasocial/crear}" class="button btn btn-primary">Crear Nuevo</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="card-body">
+					<div class="table-responsive">
+						<table class="table table-striped table-bordered" id="dataTable" width="100%" cellspacing="0">
+							<thead>
+								<tr>
+									<th>Nombre</th>
+									<th>Codigo</th>
+									<th>Telefono</th>
+									<th>Dirección</th>
+									<th>Mail</th>
+									<th>Modificar</th>
+								</tr>
+							</thead>
+							<tfoot>
+								<tr>
+									<th>Nombre</th>
+									<th>Codigo</th>
+									<th>Telefono</th>
+									<th>Dirección</th>
+									<th>Mail</th>
+									<th>Modificar</th>
+								</tr>
+							</tfoot>
+							<tbody>
+								<tr th:each="aux : ${listOS}">
+									<td th:text="${aux.nombre}"></td>
+									<td th:text="${aux.codigo}"></td>
+									<td th:text="${aux.telefono}"></td>
+									<td th:text="${aux.direccion}"></td>
+									<td th:text="${aux.mail}"></td>
+									<td width="16%">
+
+										<!-- Button trigger modal -->
+
+										<button type="button"
+											class="button btn btn-outline-dark btn-outline-secondary btn-sm"
+											data-bs-toggle="modal"
+											th:attr="data-bs-target='#staticBackdrop'+*{aux.id}">Eliminar</button>
+										<a th:href="@{obrasocial/modificar/__${aux.id}__}"
+											class="button btn btn-outline-primary btn-sm">Editar</a>
+
+										<!-- Modal -->
+										<div class="modal fade" th:id="*{'staticBackdrop'+{aux.id}}"
+											data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+											aria-labelledby="staticBackdropLabel" aria-hidden="true">
+											<div class="modal-dialog modal-dialog-centered">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title" id="staticBackdropLabel">
+															<div th:text="'Eliminar '+${aux.nombre}"></div>
+														</h5>
+														<button type="button" class="close"
+															data-bs-dismiss="modal"><span aria-hidden="true"
+																class="modal_button">&times;</span><span
+																class="sr-only">Close</span></button>
+													</div>
+													<div class="modal-body">
+														<div
+															th:text="'¿Confirmar eliminación de '+${aux.nombre}+' de la base de datos?'">
+														</div>
+														<p>
+															<strong>Esta accion no se puede deshacer</strong>
+														</p>
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-secondary"
+															data-bs-dismiss="modal">Cerrar</button>
+														<a th:href="@{/obrasocial/eliminar/__${aux.id}__}"
+															class="button btn btn-danger">Eliminar</a>
+													</div>
+												</div>
+											</div>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div sec:authorize="hasRole('ROLE_PACIENTE')">
+			<div class="card shadow mb-4">
+
+				<div class="card-body">
+					<div class="table-responsive">
+						<table class="table table-striped table-bordered" id="dataTable" width="100%" cellspacing="0">
+							<thead>
+								<tr>
+									<th>Nombre</th>
+									<th>Codigo</th>
+									<th>Telefono</th>
+									<th>Dirección</th>
+									<th>Mail</th>
+								</tr>
+							</thead>
+							<tfoot>
+								<tr>
+									<th>Nombre</th>
+									<th>Codigo</th>
+									<th>Telefono</th>
+									<th>Dirección</th>
+									<th>Mail</th>
+								</tr>
+							</tfoot>
+							<tbody>
+								<tr th:each="aux : ${listOS}">
+									<td th:text="${aux.nombre}"></td>
+									<td th:text="${aux.codigo}"></td>
+									<td th:text="${aux.telefono}"></td>
+									<td th:text="${aux.direccion}"></td>
+									<td th:text="${aux.mail}"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

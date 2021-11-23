@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es-AR" xmlns:th="https://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Laboratorios</title>
+</head>
+
+<body>
+	<div class="container-fluid" layout:fragment="contenido">
+		<div class="card shadow mb-4">
+			<div class="card-header py-3">
+				<div class="row">
+					<div class="col-10">
+						<h1 class="h3 text-gray-800 d-flex justify-content-sm-start align-items-start">Ordenes Medicas
+						</h1>
+					</div>
+					<div class="col-2 d-flex justify-content-sm-end align-items-end">
+						<a th:href="@{ordenmedica/crear}" class="button btn btn-primary">Crear Nueva</a>
+					</div>
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+						<thead>
+							<tr>
+								<th hidden=>>ID</th>
+								<th>Fecha de Solicitud</th>
+								<th>Lista de Analisis</th>
+								<th>Obra Social</th>
+								<th>Orden</th>
+								<th>Estado</th>
+								<th>Modificar</th>
+							</tr>
+						</thead>
+						<tfoot>
+							<tr>
+								<th hidden=>>ID</th>
+								<th>Fecha de Solicitud</th>
+								<th>Lista de Analisis</th>
+								<th>Obra Social</th>
+								<th>Orden</th>
+								<th>Estado</th>
+								<th>Modificar</th>
+							</tr>
+						</tfoot>
+						<tbody>
+							<tr th:each="aux : ${ordenMedica}">
+								<div sec:authorize="hasRole('ROLE_PACIENTE')">
+									<div th:if="${session.usuariosession.id == aux.usuario.id}">
+										<td th:text="${aux.id}" hidden=>></td>
+										<td th:text="${aux.fechaOrden}"></td>
+										<td>
+											<ol>
+												<li th:each="lis : ${aux.analisis}" th:text="${lis.nombre}"></li>
+											</ol>
+										</td>
+										<td>
+											<span th:if="${session.usuariosession.obraSocial == null}">Sin Obra
+												Social</span>
+											<a th:if="${session.usuariosession.obraSocial != null}"
+												th:text="${session.usuariosession.obraSocial.nombre}"> </a>
+										</td>
+										<td width="8%">
+
+
+											<!-- Button trigger modal -->
+											<button type="button"
+												class="button btn btn-outline btn-outline-primary btn-sm"
+												data-bs-toggle="modal"
+												th:attr="data-bs-target='#exampleModal'+*{aux.id}">Ver</button>
+											<!-- Modal -->
+											<div class="modal fade" th:id="*{'exampleModal'+{aux.id}}" tabindex="-1"
+												aria-labelledby="exampleModalLabel" aria-hidden="true">
+												<div class="modal-dialog modal-dialog-centered">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title" id="exampleModalLabel">
+																<div th:text="'Ver '+${aux.fechaOrden}"></div>
+															</h5>
+															<button type="button" class="close" data-bs-dismiss="modal"
+																aria-label="Close"><span aria-hidden="true"
+																	class="modal_button">&times;</span></button>
+														</div>
+														<div class="modal-body">
+															<img th:src="${'/foto/orden/' + aux.id}"
+																class="img-thumbnail">
+														</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-secondary"
+																data-bs-dismiss="modal">Cerrar</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</td>
+										<td>
+											<!--<td th:text="${aux.autorizado}" > </td>-->
+											<a th:if="${aux.autorizado == T(com.egg.labOnline.Enums.Autorizado).NoAutorizado}"
+												class="btn btn-danger">No Autorizado</a>
+											<a th:if="${aux.autorizado == T(com.egg.labOnline.Enums.Autorizado).Autorizado}"
+												class="btn btn-success">Autorizado</a>
+										</td>
+										<td width="13%">
+
+											<!-- Button trigger modal -->
+											<button type="button"
+												class="button btn btn-outline-dark btn-outline-secondary btn-sm"
+												data-bs-toggle="modal"
+												th:attr="data-bs-target='#staticBackdrop'+*{aux.id}">Eliminar</button>
+											<a th:href="@{/ordenmedica/modificar/__${aux.id}__}"
+												class="button btn btn-outline-primary btn-sm">Editar</a>
+
+											<!-- Modal -->
+											<div class="modal fade" th:id="*{'staticBackdrop'+{aux.id}}"
+												data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+												aria-labelledby="staticBackdropLabel" aria-hidden="true">
+												<div class="modal-dialog modal-dialog-centered">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title" id="staticBackdropLabel">
+																<div th:text="'Eliminar '+${aux.fechaOrden}"></div>
+															</h5>
+															<button type="button" class="close" data-bs-dismiss="modal">
+																<span aria-hidden="true"
+																	class="modal_button">&times;</span>
+																<span class="sr-only">Close</span>
+															</button>
+														</div>
+														<div class="modal-body">
+															<div
+																th:text="'¿Confirmar eliminación de '+${aux.fechaOrden}+' de la base de datos?'">
+															</div>
+															<p>
+																<strong>Esta accion no se puede deshacer</strong>
+															</p>
+														</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-secondary"
+																data-bs-dismiss="modal">Cerrar</button>
+															<a th:href="@{/ordenmedica/eliminar/__${aux.id}__}"
+																class="button btn btn-danger">Eliminar</a>
+														</div>
+													</div>
+												</div>
+											</div>
+										</td>
+									</div>
+								</div>
+								<div sec:authorize="hasRole('ROLE_ADMIN')">
+
+									<td th:text="${aux.id}" hidden=>></td>
+									<td th:text="${aux.fechaOrden}"></td>
+									<td>
+										<ol>
+											<li th:each="lis : ${aux.analisis}" th:text="${lis.nombre}"></li>
+										</ol>
+									</td>
+									<td>
+										<span th:if="${session.usuariosession.obraSocial == null}">Sin Obra
+											Social</span>
+										<a th:if="${session.usuariosession.obraSocial != null}"
+											th:text="${session.usuariosession.obraSocial.nombre}"> </a>
+									</td>
+									<td width="8%">
+
+
+										<!-- Button trigger modal -->
+										<button type="button" class="button btn btn-outline btn-outline-primary btn-sm"
+											data-bs-toggle="modal"
+											th:attr="data-bs-target='#exampleModal'+*{aux.id}">Ver</button>
+										<!-- Modal -->
+										<div class="modal fade" th:id="*{'exampleModal'+{aux.id}}" tabindex="-1"
+											aria-labelledby="exampleModalLabel" aria-hidden="true">
+											<div class="modal-dialog modal-dialog-centered">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title" id="exampleModalLabel">
+															<div th:text="'Ver '+${aux.fechaOrden}"></div>
+														</h5>
+														<button type="button" class="close" data-bs-dismiss="modal"
+															aria-label="Close"><span aria-hidden="true"
+																class="modal_button">&times;</span></button>
+													</div>
+													<div class="modal-body">
+														<img th:src="${'/foto/orden/' + aux.id}" class="img-thumbnail">
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-secondary"
+															data-bs-dismiss="modal">Cerrar</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</td>
+									<td>
+										<!--<td th:text="${aux.autorizado}" > </td>-->
+										<a th:if="${aux.autorizado == T(com.egg.labOnline.Enums.Autorizado).NoAutorizado}"
+											class="btn btn-danger">No Autorizado</a>
+										<a th:if="${aux.autorizado == T(com.egg.labOnline.Enums.Autorizado).Autorizado}"
+											class="btn btn-success">Autorizado</a>
+									</td>
+									<td width="13%">
+
+										<!-- Button trigger modal -->
+										<button type="button"
+											class="button btn btn-outline-dark btn-outline-secondary btn-sm"
+											data-bs-toggle="modal"
+											th:attr="data-bs-target='#staticBackdrop'+*{aux.id}">Eliminar</button>
+										<a th:href="@{/ordenmedica/modificar/__${aux.id}__}"
+											class="button btn btn-outline-primary btn-sm">Editar</a>
+
+										<!-- Modal -->
+										<div class="modal fade" th:id="*{'staticBackdrop'+{aux.id}}"
+											data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+											aria-labelledby="staticBackdropLabel" aria-hidden="true">
+											<div class="modal-dialog modal-dialog-centered">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title" id="staticBackdropLabel">
+															<div th:text="'Eliminar '+${aux.fechaOrden}"></div>
+														</h5>
+														<button type="button" class="close" data-bs-dismiss="modal">
+															<span aria-hidden="true" class="modal_button">&times;</span>
+															<span class="sr-only">Close</span>
+														</button>
+													</div>
+													<div class="modal-body">
+														<div
+															th:text="'¿Confirmar eliminación de '+${aux.fechaOrden}+' de la base de datos?'">
+														</div>
+														<p>
+															<strong>Esta accion no se puede deshacer</strong>
+														</p>
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-secondary"
+															data-bs-dismiss="modal">Cerrar</button>
+														<a th:href="@{/ordenmedica/eliminar/__${aux.id}__}"
+															class="button btn btn-danger">Eliminar</a>
+													</div>
+												</div>
+											</div>
+										</div>
+									</td>
+
+								</div>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

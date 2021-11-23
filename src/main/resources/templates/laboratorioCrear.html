@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es-AR" xmlns:th="https://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Laboratorio</title>
+</head>
+<body>
+	<div class="container-fluid" layout:fragment="contenido">
+		<div class="card shadow mb-4 mx-auto" style="width: 50rem;">
+			<div class="card-header py-3 ">
+				<div class="row">
+					<div class="col">
+						<h1 class="h3 mb-2 text-gray-800">Crear Laboratorio</h1>
+					</div>
+				</div>
+			</div>
+			<div class="card-body">
+				<p>Por favor rellene todos los campos.</p>
+				<p th:if="${error != null}" th:text="${error}"></p>
+				<form th:action="@{/laboratorio/crear}" method="POST">
+
+					<input name="nombre" type="text" id="nombre" placeholder="Nombre" class="form-control mb-1">
+
+					<input name="cuit" type="text" id="cuit" placeholder="CUIT" class="form-control mb-1">
+
+					<select name="analisis" id="analisis" class="form-control mb-1 selectpicker" multiple>
+						<option disabled>Seleccioas Analisis</option>
+						<option th:each="opc : ${analisis}" th:value="${opc.id}" th:text="${opc.nombre}"></option>
+					</select>
+
+					<select name="os" id="os" class="form-control mb-1 selectpicker" multiple>
+						<option disabled>Seleccionar Obra Social</option>
+						<option th:each="opc : ${obrasociales}" th:value="${opc.id}" th:text="${opc.nombre}"></option>
+					</select>
+
+					<input name="telefono" type="number" id="telefono" placeholder="Telefono" class="form-control mb-1">
+
+					<input name="direccion" type="text" id="dirección" placeholder="Dirección" class="form-control mb-1">
+
+					<input name="razonsocial" type="text" id="razonsocial" placeholder="Razon Social" class="form-control mb-1">
+
+					<button class="btn btn-primary" type="submit">Guardar</button>
+					<button class="btn btn-secondary" type="reset">Restablecer</button>
+
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

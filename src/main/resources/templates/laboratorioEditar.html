@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es-AR" xmlns:th="https://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Laboratorio</title>
+</head>
+<body>
+	<div class="container-fluid" layout:fragment="contenido">
+		<div class="card shadow mb-4 mx-auto" style="width: 50rem;">
+			<div class="card-header py-3">
+				<div class="row">
+					<div class="col">
+						<h1 class="h3 mb-2 text-gray-800" th:text="'Editar '+${lab.nombre}"></h1>
+					</div>
+				</div>
+			</div>
+			<div class="card-body">
+				<p>Por favor rellene todos los campos.</p>
+				<p th:if="${error != null}" th:text="${error}"></p>
+				<form th:action="@{/laboratorio/modificar}" method="POST">
+					<input type="hidden" name="id" th:value="${lab.id}">
+					<input name="cuit" type="text" class="form-control mb-1" th:value="${lab.cuit}" placeholder="CUIT" />
+					<select class="form-control mb-1 selectpicker" name="analisis" id="analisis" multiple>
+						<option disabled>Seleccioas Analisis</option>
+						<option th:each="opc : ${analisis}" th:value="${opc.id}" th:text="${opc.nombre}"></option>
+					</select>
+					<select class="form-control mb-1 selectpicker" name="os" id="obrasociales" multiple>
+						<option disabled>Seleccionar Obra Social</option>
+						<option th:each="opc: ${obrasocial}" th:value="${opc.id}" th:text="${opc.nombre}"></option>
+					</select>
+					<input name="nombre" type="text" class="form-control mb-1" th:value="${lab.nombre}" placeholder="Nombre" />
+					<input name="direccion" type="text" class="form-control mb-1" th:value="${lab.direccion}" placeholder="Direccion" />
+					<input name="telefono" type="number" class="form-control mb-1" th:value="${lab.telefono}" placeholder="Telefono" />
+					<input name="razonsocial" type="text" class="form-control mb-1" th:value="${lab.razonSocial}" placeholder="Razon Social" />
+					<button class="btn btn-primary" type="submit">Guardar</button>
+					<button class="btn btn-secondary" type="reset">Restablecer</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
