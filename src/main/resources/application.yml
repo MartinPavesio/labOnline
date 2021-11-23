@@ -2,22 +2,22 @@ spring:
   autoconfigure:
    exclude: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
   datasource: 
-    url: jdbc:mysql://localhost:3306/laboratorio?allowPublicKeyRetrieval=true&useSSL=false&useTimezone=true&serverTimezone=GMT&characterEncoding=UTF-8
-    username: root
-    password: root
-    #url: jdbc:postgresql://ec2-35-168-80-116.compute-1.amazonaws.com:5432/dafv38b4pjc1tf
-    #username: ginkjssdavnavd
-    #password: b32fedacfabf84e894aa055a615b237c6f8e1c65aa635a268956c29e39a884f9
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    #driver-class-name: org.postgresql.Driver
+    #url: jdbc:mysql://localhost:3306/laboratorio?allowPublicKeyRetrieval=true&useSSL=false&useTimezone=true&serverTimezone=GMT&characterEncoding=UTF-8
+    #username: root
+    #password: root
+    url: jdbc:postgresql://ec2-35-168-80-116.compute-1.amazonaws.com:5432/dafv38b4pjc1tf
+    username: ginkjssdavnavd
+    password: b32fedacfabf84e894aa055a615b237c6f8e1c65aa635a268956c29e39a884f9
+    #driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: org.postgresql.Driver
   jpa:
     show-sql: true
     hibernate:
       ddl-auto: update
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-        #dialect: org.hibernate.dialect.PostgreSQL10Dialect 
+        #dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        dialect: org.hibernate.dialect.PostgreSQL10Dialect 
   thymeleaf:
     cache: false 
 server:
