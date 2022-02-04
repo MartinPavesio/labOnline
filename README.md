@@ -1,5 +1,6 @@
 # laboratorioOnline
-Proyecto final curso EGG
+<p>Proyecto final curso EGG
+MVP desarrollada utilizando Java, Spring Boot, HTML5, CSS, JavaScript, Boostrap, Thymeleaf y MySQL.</p>
 www.labonline.com.ar
 Deployed at Heroku
 
