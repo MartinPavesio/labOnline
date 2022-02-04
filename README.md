@@ -1,7 +1,7 @@
 # labOnline - Sistema de gestión de Laboratorios
 <p>MVP desarrollada en Java, Spring Boot, MySQL, Thymeleaf, JavaScript y Boostrap. Deploy automático a Heroku desde GitHub.</p>
 
-## Live Demo: www.labonline.com.ar
+## Live Demo: www.labonline.com.ar || https://labonline.herokuapp.com/
 
 ## Login
 - Admin: 22222222 // Pwd: 222
