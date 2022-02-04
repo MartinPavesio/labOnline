@@ -3,12 +3,9 @@
 
 ## Live Demo: www.labonline.com.ar
 
-## Login to Dashboard:
-- Admin: 22222222
-- Pass: 222
-
-- User: 11111111
-- Pass: 111
+## Login
+- Admin: 22222222 // Pwd: 222
+- User: 11111111 // Pwd: 111
 
 ## Team:
 - https://github.com/Scastagnaviz
