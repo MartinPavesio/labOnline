@@ -1,5 +1,5 @@
 # labOnline - WebApp para la gestión de Laboratorios
-<p>MVP desarrollada en Java, Spring Boot, MySQL, Thymeleaf, JavaScript y Boostrap.</p>
+<p>MVP desarrollada en Java, Spring Boot, MySQL, Thymeleaf, JavaScript y Boostrap. Desplegada en Heroku con deploy automático desde GitHub.</p>
 <p>Live Demo: www.labonline.com.ar</p>
 <p>Curso Java Full Stack. https://eggeducacion.com/</p>
 
