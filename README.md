@@ -2,7 +2,6 @@
 <p>Proyecto final curso EGG</p>
 <p>MVP desarrollada utilizando Java, Spring Boot, HTML5, CSS, JavaScript, Boostrap, Thymeleaf y MySQL.</p>
 Live Demo: www.labonline.com.ar 
-[go](http://stackoverflow.com){:target="_blank" rel="noopener"}
 
 ## User:
 - Username: 11111111
