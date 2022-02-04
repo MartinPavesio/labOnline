@@ -3,13 +3,13 @@
 <p>MVP desarrollada utilizando Java, Spring Boot, HTML5, CSS, JavaScript, Boostrap, Thymeleaf y MySQL.</p>
 Live Demo: www.labonline.com.ar - Deployed at Heroku
 
-## Usuario Comun:
-- User: 11111111
+## User:
+- Username: 11111111
 - Pass: 111
 
 
-## Usuario Admin:
-- User: 22222222
+## Admin:
+- Username: 22222222
 - Pass: 222
 
 
