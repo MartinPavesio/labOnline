@@ -1,6 +1,9 @@
-# labOnline
-<p>Proyecto final curso EGG</p>
-<p>MVP desarrollada utilizando Java, Spring Boot, HTML5, CSS, JavaScript, Boostrap, Thymeleaf y MySQL.</p>
+# labOnline - WebApp para la gestión de Laboratorios
+<p>MVP desarrollada en Java, Spring Boot, HTML5, CSS, JavaScript, Boostrap, Thymeleaf y MySQL.</p>
+<p>Curso Java Full Stack. https://eggeducacion.com/</p>
+
+
+
 Live Demo: www.labonline.com.ar 
 
 ## User:
