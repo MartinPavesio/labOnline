@@ -1,6 +1,7 @@
 # laboratorioOnline
 Proyecto final curso EGG
 www.labonline.com.ar
+Deployed at Heroku
 
 ## Usuario Comun:
 - User: 11111111
