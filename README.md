@@ -7,8 +7,6 @@
 - Admin: 22222222 // Pwd: 222
 - User: 11111111 // Pwd: 111
 
--La creación de usuarios es funcional, para generar usuario admin, poner en campo nombre: ADMIN
-
 ## Team:
 - https://github.com/Scastagnaviz
 - https://github.com/GuillermoPilot
