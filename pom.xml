@@ -17,6 +17,7 @@
 	<properties>
 		<java.version>1.8</java.version>
 		<spring-cloud.version>2020.0.4</spring-cloud.version>
+		<project.scm.id>github</project.scm.id>
 	</properties>
 	<scm>
 	    <developerConnection>scm:git:https://github.com/kawak1320/labOnline.git</developerConnection>
