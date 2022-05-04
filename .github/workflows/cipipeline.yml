@@ -68,7 +68,7 @@ jobs:
                 "username": "${env.ARTIFACTORY_USERNAME_REF}",
                 "password": "${env.ARTIFACTORY_TOKEN_REF}"
               }
-            ]'
+            ]
       - name: Configure git
         run: |
           git config --global committer.email "noreply@github.com"
