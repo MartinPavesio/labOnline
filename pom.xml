@@ -18,6 +18,11 @@
 		<java.version>1.8</java.version>
 		<spring-cloud.version>2020.0.4</spring-cloud.version>
 	</properties>
+	<scm>
+	    <developerConnection>scm:git:https://github.com/kawak1320/labOnline.git</developerConnection>
+	    <url>https://github.com/kawak1320/labOnline</url>
+	    <tag>HEAD</tag>
+	</scm>
 	
 	<profiles>
 	  <profile>
@@ -193,6 +198,38 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		
+		<plugin>
+		<artifactId>maven-release-plugin</artifactId>
+		<version>3.0.0-M1</version>
+		<configuration>
+		  <tagNameFormat>v@{project.version}</tagNameFormat>
+		</configuration>
+	      </plugin>
+	      <plugin>
+		<groupId>org.jfrog.buildinfo</groupId>
+		<artifactId>artifactory-maven-plugin</artifactId>
+		<version>3.4.0</version>
+		<inherited>false</inherited>
+		<executions>
+		  <execution>
+		    <id>build-info</id>
+		    <goals>
+		      <goal>publish</goal>
+		    </goals>
+		    <configuration>
+		      <publisher>
+			<contextUrl>https://adfasdfsaf.jfrog.io/artifactory</contextUrl>
+			<username>stream-github-actions</username>
+			<password>${env.ARTIFACTORY_TOKEN}</password>
+			<repoKey>libs-release-local</repoKey>
+			<snapshotRepoKey>libs-snapshot-local</snapshotRepoKey>
+		      </publisher>
+		    </configuration>
+		  </execution>
+		</executions>
+	      </plugin>
+		
 	</build>
 
 </project>
