@@ -18,6 +18,53 @@
 		<java.version>1.8</java.version>
 		<spring-cloud.version>2020.0.4</spring-cloud.version>
 	</properties>
+	
+	<profiles>
+	  <profile>
+	    <id>github-actions</id>
+	    <activation>
+	      <property>
+		<name>env.BUILD_ENV</name>
+		<value>github-actions</value>
+	      </property>
+	    </activation>
+	    <repositories>
+	      <repository>
+		<id>artifactory</id>
+		<name>MartinPavesio Artifactory</name>
+		<url>https://adfasdfsaf.jfrog.io/artifactory/libs-release-local</url>
+		<releases>
+		  <enabled>true</enabled>
+		</releases>
+		<snapshots>
+		  <enabled>false</enabled>
+		</snapshots>
+	      </repository>
+	    </repositories>
+	    <pluginRepositories>
+	      <pluginRepository>
+		<id>artifactory</id>
+		<name>MartinPavesio Artifactory</name>
+		<url>https://adfasdfsaf.jfrog.io/artifactory/libs-release-local</url>
+		<releases>
+		  <enabled>true</enabled>
+		</releases>
+		<snapshots>
+		  <enabled>false</enabled>
+		</snapshots>
+	      </pluginRepository>
+	      <pluginRepository>
+		<snapshots>
+		  <enabled>false</enabled>
+		</snapshots>
+		<id>central</id>
+		<name>bintray-plugins</name>
+		<url>https://jcenter.bintray.com</url>
+	      </pluginRepository>
+	    </pluginRepositories>
+	  </profile>
+	</profiles>
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
