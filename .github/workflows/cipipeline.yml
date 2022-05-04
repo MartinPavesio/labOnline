@@ -35,7 +35,9 @@ jobs:
           ARTIFACTORY_USERNAME_REF: "stream-github-actions"
           ARTIFACTORY_TOKEN_REF: ${{ secrets.ARTIFACTORY_TOKEN }}
           BUILD_ENV: 'github-actions'
-        run: mvn -B package --file pom.xml
+        run: |
+          mvn -B package --file pom.xml
+          ./mvnw clean install
   
   release:
     runs-on: ubuntu-latest
@@ -69,7 +71,6 @@ jobs:
                 "password": "${env.ARTIFACTORY_TOKEN_REF}"
               }
             ]
-          output_file: .mvn/maven-wrapper.properties
       - name: Configure git
         run: |
           git config --global committer.email "noreply@github.com"
