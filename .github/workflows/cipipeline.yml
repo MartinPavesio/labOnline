@@ -84,7 +84,6 @@ jobs:
           ARTIFACTORY_TOKEN_REF: ${{ secrets.ARTIFACTORY_TOKEN }}
           BUILD_ENV: 'github-actions'
         run: |
-          chmod +x ./mvnw
           ./mvnw --batch-mode release:prepare
       - name: Push the release
         env:
