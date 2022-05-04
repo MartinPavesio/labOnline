@@ -69,6 +69,7 @@ jobs:
                 "password": "${env.ARTIFACTORY_TOKEN_REF}"
               }
             ]
+            output_file: .mvn/maven-wrapper.properties
       - name: Configure git
         run: |
           git config --global committer.email "noreply@github.com"
